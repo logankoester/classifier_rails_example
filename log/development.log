@@ -1,0 +1,1483 @@
+  [4;36;1mSQL (0.5ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mselect sqlite_version(*)[0m
+  [4;36;1mSQL (67.7ms)[0m   [0;1mCREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) [0m
+  [4;35;1mSQL (15.9ms)[0m   [0mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateTweets (20100126211415)
+  [4;36;1mSQL (0.6ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateTweets (20100126211415)
+  [4;36;1mSQL (0.2ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.7ms)[0m   [0mCREATE TABLE "tweets" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "keyword_id" integer, "user_id" integer, "text" varchar(255), "read" boolean, "interesting" boolean, "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20100126211415')[0m
+Migrating to CreateUsers (20100126211532)
+  [4;35;1mSQL (0.4ms)[0m   [0mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "classifier" text, "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20100126211532')[0m
+Migrating to CreateKeywords (20100126211633)
+  [4;35;1mSQL (13.2ms)[0m   [0mCREATE TABLE "keywords" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "text" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20100126211633')[0m
+Migrating to ChangeClassifierDefaults (20100126211820)
+  [4;35;1mSQL (0.6ms)[0m   [0mCREATE TEMPORARY TABLE "altered_tweets" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "keyword_id" integer, "user_id" integer, "text" varchar(255), "read" boolean, "interesting" boolean, "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mPRAGMA index_list("tweets")[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mDROP TABLE "tweets"[0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1mCREATE TABLE "tweets" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "keyword_id" integer, "user_id" integer, "text" varchar(255), "read" boolean, "interesting" boolean DEFAULT 'f', "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mPRAGMA index_list("altered_tweets")[0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1mDROP TABLE "altered_tweets"[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mCREATE TEMPORARY TABLE "altered_tweets" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "keyword_id" integer, "user_id" integer, "text" varchar(255), "read" boolean, "interesting" boolean DEFAULT 'f', "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mPRAGMA index_list("tweets")[0m
+  [4;35;1mSQL (5.1ms)[0m   [0mDROP TABLE "tweets"[0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1mCREATE TABLE "tweets" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "keyword_id" integer, "user_id" integer, "text" varchar(255), "read" boolean DEFAULT 'f', "interesting" boolean DEFAULT 'f', "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mPRAGMA index_list("altered_tweets")[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mDROP TABLE "altered_tweets"[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mCREATE TEMPORARY TABLE "altered_keywords" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "text" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mPRAGMA index_list("keywords")[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mDROP TABLE "keywords"[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mCREATE TABLE "keywords" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "text" varchar(255) DEFAULT '', "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mPRAGMA index_list("altered_keywords")[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mDROP TABLE "altered_keywords"[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20100126211820')[0m
+  [4;36;1mSQL (0.5ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mPRAGMA index_list("keywords")[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mPRAGMA index_list("tweets")[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mPRAGMA index_list("users")[0m
+  [4;36;1mUser Create (0.5ms)[0m   [0;1mINSERT INTO "users" ("classifier", "created_at", "updated_at") VALUES('--- !ruby/object:Classifier::Bayes 
+categories: 
+ :Interesting: {}
+
+ :Uninteresting: {}
+
+options: 
+ :encoding: UTF_8
+ :categories: 
+ - Interesting
+ - Uninteresting
+ :language: en
+stemmer: 
+total_words: 0
+', '2010-01-26 21:45:14', '2010-01-26 21:45:14')[0m
+  [4;35;1mUser Load (0.6ms)[0m   [0mSELECT * FROM "users" LIMIT 1[0m
+  [4;36;1mSQL (0.5ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.9ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mUser Load (0.6ms)[0m   [0mSELECT * FROM "users" LIMIT 1[0m
+  [4;36;1mKeyword Create (0.5ms)[0m   [0;1mINSERT INTO "keywords" ("created_at", "updated_at", "text", "user_id") VALUES('2010-01-26 22:04:47', '2010-01-26 22:04:47', 'machine learning', 1)[0m
+  [4;35;1mTweet Load (0.4ms)[0m   [0mSELECT * FROM "tweets" [0m
+  [4;36;1mKeyword Load (0.7ms)[0m   [0;1mSELECT * FROM "keywords" LIMIT 1[0m
+  [4;35;1mTweet Load (0.4ms)[0m   [0mSELECT * FROM "tweets" [0m
+  [4;36;1mUser Load (0.8ms)[0m   [0;1mSELECT * FROM "users" LIMIT 1[0m
+  [4;35;1mKeyword Create (0.5ms)[0m   [0mINSERT INTO "keywords" ("created_at", "updated_at", "text", "user_id") VALUES('2010-01-26 22:07:34', '2010-01-26 22:07:34', 'machine learning', 1)[0m
+  [4;36;1mTweet Load (0.3ms)[0m   [0;1mSELECT * FROM "tweets" [0m
+  [4;35;1mKeyword Load (0.8ms)[0m   [0mSELECT * FROM "keywords" [0m
+  [4;36;1mKeyword Delete all (3.1ms)[0m   [0;1mDELETE FROM "keywords" WHERE 1=1[0m
+  [4;35;1mKeyword Delete all (0.5ms)[0m   [0mDELETE FROM "keywords" WHERE 1=1[0m
+  [4;36;1mUser Load (3.4ms)[0m   [0;1mSELECT * FROM "users" LIMIT 1[0m
+  [4;35;1mKeyword Create (0.3ms)[0m   [0mINSERT INTO "keywords" ("created_at", "updated_at", "text", "user_id") VALUES('2010-01-26 22:08:39', '2010-01-26 22:08:39', 'machine learning', 1)[0m
+  [4;36;1mTweet Load (0.4ms)[0m   [0;1mSELECT * FROM "tweets" [0m
+  [4;35;1mTweet Load (0.4ms)[0m   [0mSELECT * FROM "tweets" [0m
+  [4;36;1mSQL (0.8ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mKeyword Load (1.8ms)[0m   [0mSELECT * FROM "keywords" LIMIT 1[0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" LIMIT 1[0m
+  [4;35;1mTweet Create (0.4ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:13:05', 'f', '2010-01-26 22:13:05', 'macbook', 'f', 1, 3)[0m
+  [4;36;1mTweet Load (0.8ms)[0m   [0;1mSELECT * FROM "tweets" [0m
+  [4;35;1mKeyword Load (0.7ms)[0m   [0mSELECT * FROM "keywords" LIMIT 1[0m
+  [4;36;1mSQL (0.5ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mselect sqlite_version(*)[0m
+  [4;36;1mSQL (7.2ms)[0m   [0;1mCREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) [0m
+  [4;35;1mSQL (2.8ms)[0m   [0mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateTweets (20100126211415)
+  [4;36;1mSQL (0.6ms)[0m   [0;1mCREATE TABLE "tweets" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "keyword_id" integer, "user_id" integer, "text" varchar(255), "read" boolean, "interesting" boolean, "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20100126211415')[0m
+Migrating to CreateUsers (20100126211532)
+  [4;36;1mSQL (0.5ms)[0m   [0;1mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "classifier" text, "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20100126211532')[0m
+Migrating to CreateKeywords (20100126211633)
+  [4;36;1mSQL (0.6ms)[0m   [0;1mCREATE TABLE "keywords" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "text" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20100126211633')[0m
+Migrating to ChangeClassifierDefaults (20100126211820)
+  [4;36;1mSQL (0.6ms)[0m   [0;1mCREATE TEMPORARY TABLE "altered_tweets" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "keyword_id" integer, "user_id" integer, "text" varchar(255), "read" boolean, "interesting" boolean, "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mPRAGMA index_list("tweets")[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mDROP TABLE "tweets"[0m
+  [4;35;1mSQL (0.4ms)[0m   [0mCREATE TABLE "tweets" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "keyword_id" integer, "user_id" integer, "text" varchar(255), "read" boolean, "interesting" boolean DEFAULT 'f', "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mPRAGMA index_list("altered_tweets")[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mDROP TABLE "altered_tweets"[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mCREATE TEMPORARY TABLE "altered_tweets" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "keyword_id" integer, "user_id" integer, "text" varchar(255), "read" boolean, "interesting" boolean DEFAULT 'f', "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mPRAGMA index_list("tweets")[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mDROP TABLE "tweets"[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mCREATE TABLE "tweets" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "keyword_id" integer, "user_id" integer, "text" varchar(255), "read" boolean DEFAULT 'f', "interesting" boolean DEFAULT 'f', "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mPRAGMA index_list("altered_tweets")[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mDROP TABLE "altered_tweets"[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mCREATE TEMPORARY TABLE "altered_keywords" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "text" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mPRAGMA index_list("keywords")[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mDROP TABLE "keywords"[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mCREATE TABLE "keywords" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "text" varchar(255) DEFAULT '', "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mPRAGMA index_list("altered_keywords")[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mDROP TABLE "altered_keywords"[0m
+  [4;36;1mSQL (2.6ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20100126211820')[0m
+  [4;35;1mSQL (0.5ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mSELECT version FROM schema_migrations[0m
+  [4;35;1mSQL (1.7ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mPRAGMA index_list("keywords")[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mPRAGMA index_list("tweets")[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mPRAGMA index_list("users")[0m
+  [4;36;1mUser Create (0.5ms)[0m   [0;1mINSERT INTO "users" ("classifier", "created_at", "updated_at") VALUES('--- !ruby/object:Classifier::Bayes 
+categories: 
+ :Uninteresting: {}
+
+ :Interesting: {}
+
+options: 
+ :encoding: UTF_8
+ :categories: 
+ - Interesting
+ - Uninteresting
+ :language: en
+stemmer: 
+total_words: 0
+', '2010-01-26 22:17:19', '2010-01-26 22:17:19')[0m
+  [4;35;1mUser Load (0.6ms)[0m   [0mSELECT * FROM "users" [0m
+  [4;36;1mKeyword Create (0.4ms)[0m   [0;1mINSERT INTO "keywords" ("created_at", "updated_at", "text", "user_id") VALUES('2010-01-26 22:18:32', '2010-01-26 22:18:32', 'robots', 1)[0m
+  [4;35;1mTweet Load (0.3ms)[0m   [0mSELECT * FROM "tweets" [0m
+  [4;36;1mKeyword Load (0.7ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords".user_id = 1) LIMIT 1[0m
+  [4;35;1mKeyword Load (0.7ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords".user_id = 1) LIMIT 1[0m
+  [4;36;1mTweet Load (0.4ms)[0m   [0;1mSELECT * FROM "tweets" [0m
+  [4;36;1mSQL (0.5ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mselect sqlite_version(*)[0m
+  [4;36;1mSQL (6.1ms)[0m   [0;1mCREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) [0m
+  [4;35;1mSQL (3.0ms)[0m   [0mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateTweets (20100126211415)
+  [4;36;1mSQL (1.0ms)[0m   [0;1mCREATE TABLE "tweets" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "keyword_id" integer, "user_id" integer, "text" varchar(255), "read" boolean, "interesting" boolean, "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.2ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20100126211415')[0m
+Migrating to CreateUsers (20100126211532)
+  [4;36;1mSQL (0.6ms)[0m   [0;1mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "classifier" text, "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.2ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20100126211532')[0m
+Migrating to CreateKeywords (20100126211633)
+  [4;36;1mSQL (0.6ms)[0m   [0;1mCREATE TABLE "keywords" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "text" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20100126211633')[0m
+Migrating to ChangeClassifierDefaults (20100126211820)
+  [4;36;1mSQL (15.7ms)[0m   [0;1mCREATE TEMPORARY TABLE "altered_tweets" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "keyword_id" integer, "user_id" integer, "text" varchar(255), "read" boolean, "interesting" boolean, "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mPRAGMA index_list("tweets")[0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1mDROP TABLE "tweets"[0m
+  [4;35;1mSQL (0.4ms)[0m   [0mCREATE TABLE "tweets" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "keyword_id" integer, "user_id" integer, "text" varchar(255), "read" boolean, "interesting" boolean DEFAULT 'f', "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mPRAGMA index_list("altered_tweets")[0m
+  [4;35;1mSQL (0.7ms)[0m   [0mDROP TABLE "altered_tweets"[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mCREATE TEMPORARY TABLE "altered_tweets" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "keyword_id" integer, "user_id" integer, "text" varchar(255), "read" boolean, "interesting" boolean DEFAULT 'f', "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mPRAGMA index_list("tweets")[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mDROP TABLE "tweets"[0m
+  [4;35;1mSQL (0.4ms)[0m   [0mCREATE TABLE "tweets" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "keyword_id" integer, "user_id" integer, "text" varchar(255), "read" boolean DEFAULT 'f', "interesting" boolean DEFAULT 'f', "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mPRAGMA index_list("altered_tweets")[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mDROP TABLE "altered_tweets"[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mCREATE TEMPORARY TABLE "altered_keywords" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "text" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mPRAGMA index_list("keywords")[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mDROP TABLE "keywords"[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mCREATE TABLE "keywords" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "text" varchar(255) DEFAULT '', "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mPRAGMA index_list("altered_keywords")[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mDROP TABLE "altered_keywords"[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20100126211820')[0m
+  [4;35;1mSQL (0.5ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mSELECT version FROM schema_migrations[0m
+  [4;35;1mSQL (0.4ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mPRAGMA index_list("keywords")[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mPRAGMA index_list("tweets")[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mPRAGMA index_list("users")[0m
+  [4;36;1mUser Create (0.5ms)[0m   [0;1mINSERT INTO "users" ("classifier", "created_at", "updated_at") VALUES('--- !ruby/object:Classifier::Bayes 
+categories: 
+ :Uninteresting: {}
+
+ :Interesting: {}
+
+options: 
+ :encoding: UTF_8
+ :categories: 
+ - Interesting
+ - Uninteresting
+ :language: en
+stemmer: 
+total_words: 0
+', '2010-01-26 22:20:49', '2010-01-26 22:20:49')[0m
+  [4;35;1mKeyword Create (0.4ms)[0m   [0mINSERT INTO "keywords" ("created_at", "updated_at", "text", "user_id") VALUES('2010-01-26 22:20:55', '2010-01-26 22:20:55', 'robots', 1)[0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.3ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:20:56', 'f', '2010-01-26 22:20:56', 'Thursday = Robots at Carnegie Mellon. Cold robots. Meet me in Pittsburgh on Thursday? (where it''ll be 14 degrees). http://bit.ly/dcZKZH', 'f', 1, 1)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.2ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:20:56', 'f', '2010-01-26 22:20:56', '@iJakeee why? robots are for that.', 'f', 1, 1)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.2ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:20:56', 'f', '2010-01-26 22:20:56', '@_ApploniaVanity i went there at 2:30 jus left...it aint sweet. Them white people in there like robots lol', 'f', 1, 1)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.2ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:20:57', 'f', '2010-01-26 22:20:57', '2.0 sounds so futuristic...i just pictured a bunch of robots wtf? :P x', 'f', 1, 1)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.2ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:20:57', 'f', '2010-01-26 22:20:57', 'We heart robots | TechRepublic Video http://video.techrepublic.com.com/2422-13792_11-207406.html?tag=nl.e010', 'f', 1, 1)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.2ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:20:57', 'f', '2010-01-26 22:20:57', 'Aliens vs Robots are going to bring some noise at Raising Haiti. Check ''em out at http://www.myspace.com/aliensvsrobots.', 'f', 1, 1)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.2ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:20:57', 'f', '2010-01-26 22:20:57', 'time for ROBOTS!', 'f', 1, 1)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.2ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:20:57', 'f', '2010-01-26 22:20:57', 'is getting tired of being beaten at Go by the #*@&amp;!%'' A.I. Stupid soulless robots and their hatred of humanity!', 'f', 1, 1)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.2ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:20:57', 'f', '2010-01-26 22:20:57', 'RT @szuperapu: Photo: Robots http://tumblr.com/xoj5vb77i', 'f', 1, 1)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.2ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:20:57', 'f', '2010-01-26 22:20:57', '@cyberdelics you should breed japanese speaking robots', 'f', 1, 1)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.2ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:20:57', 'f', '2010-01-26 22:20:57', '@michelmcbride Oh robots. Who else would we act out our weird racial / sex / personal / empowerment / techno fantasies on?', 'f', 1, 1)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.2ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:20:57', 'f', '2010-01-26 22:20:57', 'RT @dee__plume: Hey Kids this is Robots In Disguise 100% GENUINE Pledge link www.pledgemusic.com/projects/260 PLEASE HELP US BOTS x', 'f', 1, 1)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.2ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:20:57', 'f', '2010-01-26 22:20:57', '@melissssa_ Creo que muchos son robots/spammers que los desactiva Twitter. A mi me ha pasado igual.', 'f', 1, 1)[0m
+  [4;35;1mUser Load (5.2ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.2ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:20:57', 'f', '2010-01-26 22:20:57', '#google has changed its #robots.txt again http://j.mp/cqwWCV #search', 'f', 1, 1)[0m
+  [4;35;1mUser Load (12.6ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.2ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:20:57', 'f', '2010-01-26 22:20:57', 'Photo: When robots kill—somebody put them up to it. Right? http://tumblr.com/xp05vbalu', 'f', 1, 1)[0m
+  [4;35;1mTweet Load (4.7ms)[0m   [0mSELECT * FROM "tweets" [0m
+  [4;36;1mTweet Load (5.9ms)[0m   [0;1mSELECT * FROM "tweets" [0m
+  [4;35;1mTweet Load (22.2ms)[0m   [0mSELECT * FROM "tweets" [0m
+  [4;36;1mTweet Load (3.0ms)[0m   [0;1mSELECT * FROM "tweets" [0m
+  [4;35;1mKeyword Create (0.4ms)[0m   [0mINSERT INTO "keywords" ("created_at", "updated_at", "text", "user_id") VALUES('2010-01-26 22:27:23', '2010-01-26 22:27:23', 'india', 1)[0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mUser Load (2.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.2ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:27:24', 'f', '2010-01-26 22:27:24', 'Yoga Courses Reduce Jail Time: Source: news.bbc.co.uk MADHYA PRADESH, INDIA, January 22, 2010: For every three mo... http://bit.ly/9bvZZi', 'f', 1, 2)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.2ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:27:24', 'f', '2010-01-26 22:27:24', '&quot;There is no need to go to India or anywhere else to find peace. You will find that deep place of silence right in... http://bit.ly/aelUA4', 'f', 1, 2)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.2ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:27:24', 'f', '2010-01-26 22:27:24', 'CMS Watch Job: Web Specialist - Dehli, India: CMS Watch is looking to hire a Web Specialist, based in Dehli India.... http://bit.ly/9Q6OS0', 'f', 1, 2)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.3ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:27:24', 'f', '2010-01-26 22:27:24', '#TravelTuesday tip: Follow the always-interesting adventures in India of Dave &amp; Deb, aka @theplanetd http://bit.ly/cEuTYp', 'f', 1, 2)[0m
+  [4;35;1mUser Load (11.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.2ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:27:24', 'f', '2010-01-26 22:27:24', '#bdnews #bangladesh Bangladesh fightback against India - Go Jamaica: Opener Tamim Iqbal smashed an aggressive 151 ... http://bit.ly/chPpUp', 'f', 1, 2)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.2ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:27:24', 'f', '2010-01-26 22:27:24', 'i dont think she knew what she was agreeing to! RT@butterflydiary your mother is brave! Threading is not for me and I''m from freakin INDIA.', 'f', 1, 2)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (8.7ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:27:24', 'f', '2010-01-26 22:27:24', 'RT @globalthoughtz India becomes the third highest Twitter using nation http://bit.ly/1JuId3', 'f', 1, 2)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.2ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:27:24', 'f', '2010-01-26 22:27:24', '@elpadrino tip.. Empieza de pies y al ultimo la cabeza. Lo aprendi en india.. No es sufrir!! Jajja', 'f', 1, 2)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.2ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:27:24', 'f', '2010-01-26 22:27:24', '@brucerytel Ah, India, of course. Well considered.', 'f', 1, 2)[0m
+  [4;35;1mUser Load (2.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.2ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:27:24', 'f', '2010-01-26 22:27:24', '@vijaypandey the best maps for India r no doubt from @mapmyindia &amp; second, tele atlas for a limited space, satguide as of now fairs ok.', 'f', 1, 2)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.2ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:27:24', 'f', '2010-01-26 22:27:24', '@avirup2008 of course brother...hows the buzz in india?', 'f', 1, 2)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.2ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:27:24', 'f', '2010-01-26 22:27:24', '@BDUTT The guardian is what a newpaper ought to be &amp; Daily Mail is what it ought not to be!!!..Wish we had something like Guardian in India.', 'f', 1, 2)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.2ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:27:24', 'f', '2010-01-26 22:27:24', 'RT @GreenBizWatch: Inside cleantech India: Kal, Aaj aur Kal! http://bit.ly/di7BQX', 'f', 1, 2)[0m
+  [4;35;1mUser Load (11.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (13.6ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:27:24', 'f', '2010-01-26 22:27:24', '@Tim_LRR India seems like the obvious answer, though I feel like I might be missing the big picture somehow...', 'f', 1, 2)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.2ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:27:24', 'f', '2010-01-26 22:27:24', 'FAQ: Where can I do Aesthetic Medicine in India?: sorry i meant the ''address… http://goo.gl/fb/4f7W #prepg #doctors', 'f', 1, 2)[0m
+  [4;35;1mKeyword Load (1.0ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords".user_id = 1) [0m
+  [4;36;1mKeyword Update (0.5ms)[0m   [0;1mUPDATE "keywords" SET user_id = NULL WHERE (user_id = 1 AND id IN (1,2)) [0m
+  [4;35;1mTweet Load (10.4ms)[0m   [0mSELECT * FROM "tweets" WHERE ("tweets".user_id = 1) [0m
+  [4;36;1mTweet Destroy (1.5ms)[0m   [0;1mDELETE FROM "tweets" WHERE "id" = 1[0m
+  [4;35;1mTweet Destroy (0.2ms)[0m   [0mDELETE FROM "tweets" WHERE "id" = 2[0m
+  [4;36;1mTweet Destroy (0.2ms)[0m   [0;1mDELETE FROM "tweets" WHERE "id" = 3[0m
+  [4;35;1mTweet Destroy (0.2ms)[0m   [0mDELETE FROM "tweets" WHERE "id" = 4[0m
+  [4;36;1mTweet Destroy (0.3ms)[0m   [0;1mDELETE FROM "tweets" WHERE "id" = 5[0m
+  [4;35;1mTweet Destroy (0.2ms)[0m   [0mDELETE FROM "tweets" WHERE "id" = 6[0m
+  [4;36;1mTweet Destroy (0.2ms)[0m   [0;1mDELETE FROM "tweets" WHERE "id" = 7[0m
+  [4;35;1mTweet Destroy (0.2ms)[0m   [0mDELETE FROM "tweets" WHERE "id" = 8[0m
+  [4;36;1mTweet Destroy (0.2ms)[0m   [0;1mDELETE FROM "tweets" WHERE "id" = 9[0m
+  [4;35;1mTweet Destroy (0.2ms)[0m   [0mDELETE FROM "tweets" WHERE "id" = 10[0m
+  [4;36;1mTweet Destroy (1.0ms)[0m   [0;1mDELETE FROM "tweets" WHERE "id" = 11[0m
+  [4;35;1mTweet Destroy (0.1ms)[0m   [0mDELETE FROM "tweets" WHERE "id" = 12[0m
+  [4;36;1mTweet Destroy (0.1ms)[0m   [0;1mDELETE FROM "tweets" WHERE "id" = 13[0m
+  [4;35;1mTweet Destroy (0.1ms)[0m   [0mDELETE FROM "tweets" WHERE "id" = 14[0m
+  [4;36;1mTweet Destroy (0.9ms)[0m   [0;1mDELETE FROM "tweets" WHERE "id" = 15[0m
+  [4;35;1mTweet Destroy (0.1ms)[0m   [0mDELETE FROM "tweets" WHERE "id" = 16[0m
+  [4;36;1mTweet Destroy (0.1ms)[0m   [0;1mDELETE FROM "tweets" WHERE "id" = 17[0m
+  [4;35;1mTweet Destroy (0.1ms)[0m   [0mDELETE FROM "tweets" WHERE "id" = 18[0m
+  [4;36;1mTweet Destroy (0.2ms)[0m   [0;1mDELETE FROM "tweets" WHERE "id" = 19[0m
+  [4;35;1mTweet Destroy (0.1ms)[0m   [0mDELETE FROM "tweets" WHERE "id" = 20[0m
+  [4;36;1mTweet Destroy (3.6ms)[0m   [0;1mDELETE FROM "tweets" WHERE "id" = 21[0m
+  [4;35;1mTweet Destroy (0.2ms)[0m   [0mDELETE FROM "tweets" WHERE "id" = 22[0m
+  [4;36;1mTweet Destroy (0.1ms)[0m   [0;1mDELETE FROM "tweets" WHERE "id" = 23[0m
+  [4;35;1mTweet Destroy (0.1ms)[0m   [0mDELETE FROM "tweets" WHERE "id" = 24[0m
+  [4;36;1mTweet Destroy (0.1ms)[0m   [0;1mDELETE FROM "tweets" WHERE "id" = 25[0m
+  [4;35;1mTweet Destroy (0.7ms)[0m   [0mDELETE FROM "tweets" WHERE "id" = 26[0m
+  [4;36;1mTweet Destroy (0.1ms)[0m   [0;1mDELETE FROM "tweets" WHERE "id" = 27[0m
+  [4;35;1mTweet Destroy (0.1ms)[0m   [0mDELETE FROM "tweets" WHERE "id" = 28[0m
+  [4;36;1mTweet Destroy (0.1ms)[0m   [0;1mDELETE FROM "tweets" WHERE "id" = 29[0m
+  [4;35;1mTweet Destroy (0.1ms)[0m   [0mDELETE FROM "tweets" WHERE "id" = 30[0m
+  [4;36;1mKeyword Create (0.4ms)[0m   [0;1mINSERT INTO "keywords" ("created_at", "updated_at", "text", "user_id") VALUES('2010-01-26 22:28:12', '2010-01-26 22:28:12', 'india', 1)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.2ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:28:12', 'f', '2010-01-26 22:28:12', 'News Videos - One Man''s Story India http://ff.im/-eTwic', 'f', 1, 3)[0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.2ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:28:12', 'f', '2010-01-26 22:28:12', 'India to fast-track talks to sew up ASEAN services trade pact: “This will be the first meeting on services aft... http://bit.ly/dcIL2C #FTA', 'f', 1, 3)[0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.2ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:28:12', 'f', '2010-01-26 22:28:12', 'The calljack site f1compstepuk is registered to an address in India. http://www.networksolutions.com/whois-search/f1compstepuk.com', 'f', 1, 3)[0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.2ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:28:12', 'f', '2010-01-26 22:28:12', 'India to fast-track talks to sew up ASEAN services trade pact: “This will be the first meeting on services aft... http://bit.ly/dcIL2C #FTA', 'f', 1, 3)[0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.2ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:28:13', 'f', '2010-01-26 22:28:13', 'India to fast-track talks to sew up ASEAN services trade pact: “This will be the first meeting on services aft... http://bit.ly/dcIL2C #FTA', 'f', 1, 3)[0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.2ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:28:13', 'f', '2010-01-26 22:28:13', 'Boat Yard http://is.gd/76TRe #boats #India', 'f', 1, 3)[0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.3ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:28:13', 'f', '2010-01-26 22:28:13', 'India to fast-track talks to sew up ASEAN services trade pact: “This will be the first meeting on services aft... http://bit.ly/dcIL2C #FTA', 'f', 1, 3)[0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.2ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:28:13', 'f', '2010-01-26 22:28:13', 'The myth of Ghazwa-tul-Hind: http://blog.ale.com.pk/?p=1124 
+#pakistan #india #politics', 'f', 1, 3)[0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.4ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:28:13', 'f', '2010-01-26 22:28:13', 'Top5 popular words: 1 #nowplaying 2 Miami 3 #Haiti 4 #freevenezuela (New) 5 Winter (New) http://india.twirus.com', 'f', 1, 3)[0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.2ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:28:13', 'f', '2010-01-26 22:28:13', 'WordPress Job: Developers around New Delhi, India by pwes204 | WordPress Jobs (http://cli.gs/HRBSt)', 'f', 1, 3)[0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.2ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:28:13', 'f', '2010-01-26 22:28:13', 'Yoga Courses Reduce Jail Time: Source: news.bbc.co.uk MADHYA PRADESH, INDIA, January 22, 2010: For every three mo... http://bit.ly/9bvZZi', 'f', 1, 3)[0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.3ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:28:13', 'f', '2010-01-26 22:28:13', '&quot;There is no need to go to India or anywhere else to find peace. You will find that deep place of silence right in... http://bit.ly/aelUA4', 'f', 1, 3)[0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.2ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:28:13', 'f', '2010-01-26 22:28:13', 'CMS Watch Job: Web Specialist - Dehli, India: CMS Watch is looking to hire a Web Specialist, based in Dehli India.... http://bit.ly/9Q6OS0', 'f', 1, 3)[0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.2ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:28:13', 'f', '2010-01-26 22:28:13', '#TravelTuesday tip: Follow the always-interesting adventures in India of Dave &amp; Deb, aka @theplanetd http://bit.ly/cEuTYp', 'f', 1, 3)[0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.2ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:28:13', 'f', '2010-01-26 22:28:13', '#bdnews #bangladesh Bangladesh fightback against India - Go Jamaica: Opener Tamim Iqbal smashed an aggressive 151 ... http://bit.ly/chPpUp', 'f', 1, 3)[0m
+  [4;36;1mTweet Load (4.9ms)[0m   [0;1mSELECT * FROM "tweets" [0m
+  [4;35;1mTweet Load (6.6ms)[0m   [0mSELECT * FROM "tweets" WHERE ("tweets".keyword_id = 3) [0m
+  [4;36;1mTweet Destroy (0.3ms)[0m   [0;1mDELETE FROM "tweets" WHERE "id" = 31[0m
+  [4;35;1mTweet Destroy (0.1ms)[0m   [0mDELETE FROM "tweets" WHERE "id" = 32[0m
+  [4;36;1mTweet Destroy (0.1ms)[0m   [0;1mDELETE FROM "tweets" WHERE "id" = 33[0m
+  [4;35;1mTweet Destroy (0.2ms)[0m   [0mDELETE FROM "tweets" WHERE "id" = 34[0m
+  [4;36;1mTweet Destroy (0.1ms)[0m   [0;1mDELETE FROM "tweets" WHERE "id" = 35[0m
+  [4;35;1mTweet Destroy (0.1ms)[0m   [0mDELETE FROM "tweets" WHERE "id" = 36[0m
+  [4;36;1mTweet Destroy (0.1ms)[0m   [0;1mDELETE FROM "tweets" WHERE "id" = 37[0m
+  [4;35;1mTweet Destroy (0.2ms)[0m   [0mDELETE FROM "tweets" WHERE "id" = 38[0m
+  [4;36;1mTweet Destroy (0.1ms)[0m   [0;1mDELETE FROM "tweets" WHERE "id" = 39[0m
+  [4;35;1mTweet Destroy (0.1ms)[0m   [0mDELETE FROM "tweets" WHERE "id" = 40[0m
+  [4;36;1mTweet Destroy (0.1ms)[0m   [0;1mDELETE FROM "tweets" WHERE "id" = 41[0m
+  [4;35;1mTweet Destroy (0.1ms)[0m   [0mDELETE FROM "tweets" WHERE "id" = 42[0m
+  [4;36;1mTweet Destroy (0.1ms)[0m   [0;1mDELETE FROM "tweets" WHERE "id" = 43[0m
+  [4;35;1mTweet Destroy (0.1ms)[0m   [0mDELETE FROM "tweets" WHERE "id" = 44[0m
+  [4;36;1mTweet Destroy (0.1ms)[0m   [0;1mDELETE FROM "tweets" WHERE "id" = 45[0m
+  [4;35;1mKeyword Destroy (0.1ms)[0m   [0mDELETE FROM "keywords" WHERE "id" = 3[0m
+  [4;36;1mKeyword Create (1.4ms)[0m   [0;1mINSERT INTO "keywords" ("created_at", "updated_at", "text", "user_id") VALUES('2010-01-26 22:29:17', '2010-01-26 22:29:17', 'turkey', 1)[0m
+  [4;35;1mUser Load (0.6ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.2ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:29:17', 'f', '2010-01-26 22:29:17', '@BlindMaximus Even turkey bacon? Or *gasp* vegi-bacon???@trailerparkdogs @onecentpenny', 'f', 1, 4)[0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.2ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:29:17', 'f', '2010-01-26 22:29:17', '@justinbieber Seni Cooook Seviyorum!!!! I Love You!!! i say Turkish!! i Turkey fan of u!! :)', 'f', 1, 4)[0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.2ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:29:17', 'f', '2010-01-26 22:29:17', 'Turkey burger on wheat with mushrooms and grilled onions, please! (@ Mooyah Burgers - Frisco) http://4sq.com/6TENlD', 'f', 1, 4)[0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.2ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:29:17', 'f', '2010-01-26 22:29:17', 'Turkey''s early 20th Century Genocides http://t.love.com/293174667', 'f', 1, 4)[0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.2ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:29:17', 'f', '2010-01-26 22:29:17', 'HELP: Need a turkey recipe for tonight! no tacos tho..thanks!', 'f', 1, 4)[0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.2ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:29:17', 'f', '2010-01-26 22:29:17', 'RT @velvetescape: RT @BrilliantTips A Trip to Gallipoli in Turkey: http://su.pr/2yPskT #traveltuesday', 'f', 1, 4)[0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.2ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:29:17', 'f', '2010-01-26 22:29:17', 'Cooking dinner! TURKEY BURGERS ON DEK! @KrisAintNoJoke', 'f', 1, 4)[0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.2ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:29:17', 'f', '2010-01-26 22:29:17', 'RT @BrilliantTips A Trip to Gallipoli in Turkey: http://su.pr/2yPskT #traveltuesday', 'f', 1, 4)[0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.2ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:29:17', 'f', '2010-01-26 22:29:17', 'Had a great brunch.. scrambld eggs w/ cheese onions &amp; peppers, Turkey bacon &amp; english muffins yummmm', 'f', 1, 4)[0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.2ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:29:17', 'f', '2010-01-26 22:29:17', '@ThePBG I''ll eat Frosted Flakes for dinner and turkey w/ rice at 5am. Food is food, lol.', 'f', 1, 4)[0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.2ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:29:17', 'f', '2010-01-26 22:29:17', '@understandblue What''s shaken, turkey bacon!?! If you feel like chatting I''m here.', 'f', 1, 4)[0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.2ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:29:17', 'f', '2010-01-26 22:29:17', 'Damnit, i want subway! turkey on 9 grain honey oat sounds soooo good right now:)', 'f', 1, 4)[0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.2ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:29:17', 'f', '2010-01-26 22:29:17', 'DIY Turkey Jerky, really easy to make at home and NO preservatives! http://bit.ly/b3a5bP', 'f', 1, 4)[0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.2ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:29:17', 'f', '2010-01-26 22:29:17', '#shoutout to my lil'' sis for making me some spaghetti with wheat noodles and ground turkey! It was the BOMB DIGGY! Do we still say that?', 'f', 1, 4)[0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.2ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:29:17', 'f', '2010-01-26 22:29:17', 'maybe you turkey bacon eaters wouldnt be so mad if u had #pork in your life', 'f', 1, 4)[0m
+  [4;36;1mTweet Load (4.7ms)[0m   [0;1mSELECT * FROM "tweets" [0m
+
+
+Processing TweetsController#index (for 127.0.0.1 at 2010-01-26 17:31:45) [GET]
+
+ActionController::UnknownAction (No action responded to index. Actions: destroy and show):
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendering rescues/layout (not_found)
+  [4;35;1mTweet Load (5.0ms)[0m   [0mSELECT * FROM "tweets" [0m
+  [4;36;1mTweet Load (4.7ms)[0m   [0;1mSELECT * FROM "tweets" [0m
+  [4;35;1mTweet Load (4.6ms)[0m   [0mSELECT * FROM "tweets" [0m
+  [4;36;1mTweet Load (2.9ms)[0m   [0;1mSELECT * FROM "tweets" [0m
+  [4;35;1mTweet Load (4.7ms)[0m   [0mSELECT * FROM "tweets" [0m
+  [4;36;1mTweet Load (5.1ms)[0m   [0;1mSELECT * FROM "tweets" [0m
+  [4;35;1mTweet Load (3.0ms)[0m   [0mSELECT * FROM "tweets" [0m
+  [4;36;1mTweet Load (13.7ms)[0m   [0;1mSELECT * FROM "tweets" [0m
+  [4;35;1mTweet Load (6.3ms)[0m   [0mSELECT * FROM "tweets" [0m
+  [4;36;1mTweet Load (19.1ms)[0m   [0;1mSELECT * FROM "tweets" [0m
+  [4;35;1mTweet Load (12.7ms)[0m   [0mSELECT * FROM "tweets" [0m
+  [4;36;1mTweet Load (15.0ms)[0m   [0;1mSELECT * FROM "tweets" [0m
+  [4;35;1mTweet Load (3.4ms)[0m   [0mSELECT * FROM "tweets" [0m
+  [4;36;1mKeyword Load (0.4ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (0.8ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (0.3ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (0.5ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (0.3ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;35;1mUser Load (4.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (0.4ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (0.4ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (0.4ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (0.4ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (0.4ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (0.4ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (0.3ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (0.4ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (0.3ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (0.5ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Load (0.4ms)[0m   [0;1mSELECT * FROM "tweets" WHERE ("tweets"."interesting" = 't') LIMIT 1[0m
+  [4;35;1mTweet Load (0.9ms)[0m   [0mSELECT * FROM "tweets" WHERE ("tweets"."interesting" = 'f') LIMIT 1[0m
+  [4;36;1mKeyword Create (0.5ms)[0m   [0;1mINSERT INTO "keywords" ("created_at", "updated_at", "text", "user_id") VALUES('2010-01-26 22:55:22', '2010-01-26 22:55:22', 'bacon', 1)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.2ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:55:22', 'f', '2010-01-26 22:55:22', 'It doesn''t help that @caitsutter taunted me with bacon jamie gaga grady sizemore rob pattinson and hartville kitchen! Life''s most delish!', 'f', 1, 5)[0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.2ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:55:22', 'f', '2010-01-26 22:55:22', 'Pancakes with bacon &amp; syrup &amp; butter -call me Short Order. #breakfastfordinner', 'f', 1, 5)[0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.2ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:55:22', 'f', '2010-01-26 22:55:22', 'Bacon and Chocolate Bar famously from Vosges Chocolat http://bit.ly/9YObpP', 'f', 1, 5)[0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.1ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:55:22', 'f', '2010-01-26 22:55:22', 'Bacon!!!!!!!!:)', 'f', 1, 5)[0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.2ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:55:22', 'f', '2010-01-26 22:55:22', '@PdxWineguy wow there''s a Bacon app for the iphone? I must force it upon my friends'' iphones...', 'f', 1, 5)[0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.3ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:55:22', 'f', '2010-01-26 22:55:22', 'I nominate St. Stephen''s Green in Mountain View for the best BLT in the Silicon Valley. Mmmm #bacon....', 'f', 1, 5)[0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.2ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:55:22', 'f', '2010-01-26 22:55:22', 'RT @UselessTips: vegetarian sausages taste even better wrapped in bacon', 'f', 1, 5)[0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.2ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:55:22', 'f', '2010-01-26 22:55:22', '@CarolBlymire bacon AND tofu??', 'f', 1, 5)[0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.2ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:55:22', 'f', '2010-01-26 22:55:22', 'RT @writeonglass: @staceysoleil I recently discovered bacon-flavored envelopes. I didn''t know people felt so strongly about bacon.', 'f', 1, 5)[0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.2ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:55:22', 'f', '2010-01-26 22:55:22', 'RT @SciEntEx: The Six Degrees of Kevin Bacon and social network theory - http://bit.ly/bofa2Z', 'f', 1, 5)[0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.2ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:55:22', 'f', '2010-01-26 22:55:22', 'Mas jogo um xis bacon (do Varisco) que o Jonas vai meter gol.', 'f', 1, 5)[0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.2ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:55:22', 'f', '2010-01-26 22:55:22', 'fired bacon, fried halloumi, chilli oil sundried tomatoes two slices of bread and a cup of cha. that exactly what i signed up for mom.', 'f', 1, 5)[0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.2ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:55:22', 'f', '2010-01-26 22:55:22', 'If you''ve never been to Canada you should go immediately, it''s awesome. Go there quickly before they run out of bacon. #CraigFerguson', 'f', 1, 5)[0m
+  [4;36;1mUser Load (3.7ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.2ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:55:22', 'f', '2010-01-26 22:55:22', 'grilled cheese bacon burger at carls jr is the bussiness witha south west salad omg chipole Caesar dressing I''m in heaven...hello heart burn', 'f', 1, 5)[0m
+  [4;36;1mUser Load (0.9ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.2ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:55:22', 'f', '2010-01-26 22:55:22', 'RTkirim2 lah.. @tizzy_: Chinese bacon fried rice ala @tarrrrr this is super nyammm!! Mau lagiiii :D http://tweetphoto.com/9646272', 'f', 1, 5)[0m
+  [4;36;1mTweet Load (7.0ms)[0m   [0;1mSELECT * FROM "tweets" [0m
+  [4;35;1mTweet Load (0.4ms)[0m   [0mSELECT * FROM "tweets" WHERE ("tweets"."interesting" = 't') LIMIT 1[0m
+  [4;36;1mTweet Load (0.8ms)[0m   [0;1mSELECT * FROM "tweets" WHERE ("tweets"."interesting" = 'f') LIMIT 1[0m
+  [4;35;1mTweet Load (6.3ms)[0m   [0mSELECT * FROM "tweets" WHERE ("tweets"."interesting" = 'f') [0m
+  [4;36;1mTweet Load (0.4ms)[0m   [0;1mSELECT * FROM "tweets" WHERE ("tweets"."interesting" = 't') [0m
+  [4;35;1mTweet Load (14.5ms)[0m   [0mSELECT * FROM "tweets" [0m
+  [4;36;1mUser Update (0.4ms)[0m   [0;1mUPDATE "users" SET "classifier" = '--- !ruby/object:Classifier::Bayes 
+categories: 
+ :Uninteresting: 
+ :love: 2
+ :"!!": 4
+ :httpsupr2ypskt: 4
+ :/: 5
+ :turkish: 2
+ :"://": 5
+ :justinbieb: 2
+ :centuri: 1
+ :".": 6
+ :"!!!!": 2
+ :velvetescap: 2
+ :traveltuesday: 4
+ :turkey: 7
+ :seni: 2
+ :":": 6
+ :genocid: 1
+ :fan: 2
+ :"!!!": 2
+ :brillianttip: 4
+ :cooook: 2
+ :httptlovecom293174667: 1
+ :":)": 2
+ :trip: 4
+ :"@": 8
+ :"20th": 1
+ :seviyorum: 2
+ :"''": 1
+ :say: 2
+ :gallipoli: 4
+ :"#": 4
+ :earli: 1
+ :Interesting: 
+ :eat: 1
+ :for: 1
+ :great: 1
+ :onion: 1
+ :wouldnt: 1
+ :understandblu: 1
+ :english: 1
+ :/: 2
+ :frost: 1
+ :feel: 1
+ :brunch: 1
+ :";": 2
+ :blindmaximus: 1
+ :mad: 1
+ :shaken: 1
+ :".": 3
+ :muffin: 1
+ :"..": 1
+ :flake: 1
+ :"5am": 1
+ :scrambld: 1
+ :turkey: 5
+ :bacon: 4
+ :dinner: 1
+ :pork: 1
+ :your: 1
+ :chat: 1
+ :"!?!": 1
+ :had: 2
+ :yummmm: 1
+ :"?": 1
+ :rice: 1
+ :egg: 1
+ :",": 3
+ :even: 1
+ :gasp: 1
+ :-: 1
+ :thepbg: 1
+ :lol: 1
+ :life: 1
+ :&: 2
+ :mayb: 1
+ :what: 1
+ :chees: 1
+ :vegibacontrailerparkdog: 1
+ :"@": 4
+ :*: 2
+ :"???@": 1
+ :ill: 1
+ :"''": 3
+ :amp: 2
+ :food: 2
+ :eater: 1
+ :"#": 1
+ :pepper: 1
+ :onecentpenni: 1
+options: 
+ :encoding: UTF_8
+ :categories: 
+ - Interesting
+ - Uninteresting
+ :language: en
+stemmer: 
+total_words: 174
+' WHERE "id" = 1[0m
+  [4;35;1mKeyword Create (0.5ms)[0m   [0mINSERT INTO "keywords" ("created_at", "updated_at", "text", "user_id") VALUES('2010-01-26 22:58:56', '2010-01-26 22:58:56', 'cooking', 1)[0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.2ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:58:57', 'f', '2010-01-26 22:58:57', 'WaterAlert english: Packages sometimes provide an illustration to explain the cooking preparations; but illustrati... http://bit.ly/dtEZgj', 'f', 1, 6)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.3ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:58:57', 'f', '2010-01-26 22:58:57', 'Recipes Cooking | Recipes Cookbook: For more articles and resources on cooking, free cooking c... http://bit.ly/bOO2H6 #Grill #GrillRecipes', 'f', 1, 6)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.2ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:58:57', 't', '2010-01-26 22:58:57', '@Reeter_Sarah lol yay i''m about to start cooking too', 'f', 1, 6)[0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.2ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:58:57', 'f', '2010-01-26 22:58:57', 'Can''t go wrong with $11.90 off! Joy of Cooking: 75th Anniversary Edition - 2006 - http://bit.ly/4MhJY3', 'f', 1, 6)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.2ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:58:57', 't', '2010-01-26 22:58:57', 'I feel like cooking for a sylar.... I might would consider myself having a conversation with him :)', 'f', 1, 6)[0m
+  [4;35;1mUser Load (1.0ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.2ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:58:57', 't', '2010-01-26 22:58:57', 'Wheee! My mommy is cooking fried rice. (:
+
+I''m scared for finals. Dx', 'f', 1, 6)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.2ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:58:57', 't', '2010-01-26 22:58:57', 'Cooking waiting on David to get home..', 'f', 1, 6)[0m
+  [4;35;1mUser Load (0.5ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.2ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:58:57', 'f', '2010-01-26 22:58:57', 'RT @Majic_Johnson: #whatislove Cooking him a dinner in/on the STOVE instead of the MICROWAVE.', 'f', 1, 6)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.2ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:58:57', 't', '2010-01-26 22:58:57', 'That''s one thing I hate about cooking, the wait.', 'f', 1, 6)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.2ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:58:57', 'f', '2010-01-26 22:58:57', 'Chaney Instruments Wireless Digital Cooking / BBQ Thermometer for $15 + free shipping: Buy.com offers the Chaney Instru http://url4.eu/1EZ4n', 'f', 1, 6)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.2ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:58:57', 'f', '2010-01-26 22:58:57', 'The Latest News About Cooking From Cookingtools http://tinyurl.com/yjdlquj', 'f', 1, 6)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.2ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:58:57', 'f', '2010-01-26 22:58:57', 'Eggwatchers Keeps You Entertained While You Cook the Perfect Egg [Cooking] http://bit.ly/cP7iRs', 'f', 1, 6)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.6ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:58:57', 't', '2010-01-26 22:58:57', 'this girl @iputmymoney1 is fuckin burning this house [smokey] down COOKING', 'f', 1, 6)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.2ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:58:57', 'f', '2010-01-26 22:58:57', 'Heads up Seattle microbrewsters, Los Angeles is cooking something up http://bit.ly/cgxWW2', 'f', 1, 6)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.2ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 22:58:57', 'f', '2010-01-26 22:58:57', 'Heads up Seattle microbrewsters, Los Angeles is cooking something up http://bit.ly/bSSdBR', 'f', 1, 6)[0m
+  [4;35;1mTweet Load (3.7ms)[0m   [0mSELECT * FROM "tweets" WHERE ("tweets"."interesting" = 't') [0m
+  [4;36;1mTweet Load (1.4ms)[0m   [0;1mSELECT * FROM "tweets" WHERE ("tweets"."interesting" = 't') [0m
+  [4;35;1mTweet Load (2.3ms)[0m   [0mSELECT * FROM "tweets" WHERE ("tweets"."interesting" = 't') [0m
+  [4;36;1mTweet Load (4.1ms)[0m   [0;1mSELECT * FROM "tweets" WHERE ("tweets"."interesting" = 't') [0m
+  [4;35;1mTweet Load (1.4ms)[0m   [0mSELECT * FROM "tweets" WHERE ("tweets"."interesting" = 't') [0m
+  [4;36;1mTweet Load (18.8ms)[0m   [0;1mSELECT * FROM "tweets" [0m
+  [4;35;1mKeyword Load (19.5ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.5ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.5ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.5ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.5ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.5ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (8.1ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;36;1mUser Load (2.0ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (1.0ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;36;1mUser Load (0.8ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.6ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;36;1mUser Load (0.5ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.5ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;36;1mUser Load (0.7ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;36;1mUser Load (0.6ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 5) [0m
+  [4;36;1mUser Load (0.7ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 5) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 5) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 5) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 5) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 5) [0m
+  [4;36;1mUser Load (0.6ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 5) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 5) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 5) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 5) [0m
+  [4;36;1mUser Load (0.6ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.5ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 5) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 5) [0m
+  [4;36;1mUser Load (0.9ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 5) [0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 5) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 5) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 6) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 6) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 6) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 6) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 6) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 6) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.3ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 6) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 6) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 6) [0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 6) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 6) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 6) [0m
+  [4;36;1mUser Load (0.5ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 6) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 6) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.3ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 6) [0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Create (4.6ms)[0m   [0mINSERT INTO "keywords" ("created_at", "updated_at", "text", "user_id") VALUES('2010-01-26 23:03:21', '2010-01-26 23:03:21', 'airfare', 1)[0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.2ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:03:22', 'f', '2010-01-26 23:03:22', 'RT @52perfectdays: #Travel Tuesday Great deals to Mexico this week with @MexicanaAir http://bit.ly/cjse1p #mexico #airfare', 'f', 1, 7)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.2ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:03:22', 'f', '2010-01-26 23:03:22', 'Fired Travel Agent Reveals How To Get Dirt Cheap Airfare Tickets! http://bit.ly/9Uoy43', 'f', 1, 7)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.2ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:03:22', 'f', '2010-01-26 23:03:22', '#Travel Tuesday Great deals to Mexico this week with @MexicanaAir http://bit.ly/cjse1p #mexico #airfare', 'f', 1, 7)[0m
+  [4;35;1mUser Load (0.7ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.2ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:03:22', 't', '2010-01-26 23:03:22', '@jasmine84 Thanks! Haha, do you think they''ll give me special consideration if I say, &quot;I''m poor, so I can''t afford airfare&quot;?', 'f', 1, 7)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.2ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:03:22', 't', '2010-01-26 23:03:22', 'Airfare deals Halifax-Lethbridge -- $444 -- 1/26/2010, http://tgels.com/d.jsp?c=1&amp;f=yhz&amp;t=yql', 'f', 1, 7)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.2ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:03:22', 'f', '2010-01-26 23:03:22', 'RT @52perfectdays: Great deals to Mexico this week with @MexicanaAir http://bit.ly/cjse1p #travel #mexico #airfare', 'f', 1, 7)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.2ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:03:22', 'f', '2010-01-26 23:03:22', 'RT @52perfectdays: Great deals to Mexico this week with @MexicanaAir http://bit.ly/cjse1p #travel #mexico #airfare', 'f', 1, 7)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.2ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:03:22', 'f', '2010-01-26 23:03:22', 'Great deals to Mexico this week with @MexicanaAir http://bit.ly/cjse1p #travel #mexico #airfare', 'f', 1, 7)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.2ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:03:22', 'f', '2010-01-26 23:03:22', 'Cheapest Airfare from Milwaukee (MKE) to Green Bay (GRB) $119*,Feb 09-Feb 16 http://dealnay.com/245528 #travel #flight #airticket #cheapoair', 'f', 1, 7)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.5ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:03:22', 'f', '2010-01-26 23:03:22', 'Cheapest Airfare from New York (NYC) to Richmond (RIC) $133*,Feb 02-Feb 09 http://dealnay.com/245529 #travel #flight #airticket #cheapoair', 'f', 1, 7)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.2ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:03:22', 'f', '2010-01-26 23:03:22', 'Spend 2 Nights in Miami Beach + Airfare from Atlanta for only $337/person http://bit.ly/b8OHnE #traveldeals #deals #traveltuesday', 'f', 1, 7)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.2ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:03:22', 'f', '2010-01-26 23:03:22', 'Lowest Airfare from Orlando(ORL) to Philadelphia(PHL) $169* http://fb.me/4P311FB', 'f', 1, 7)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.2ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:03:22', 'f', '2010-01-26 23:03:22', 'Lowest Airfare from Orlando(ORL) to #Philadelphia(PHL) $169* http://bit.ly/2Vs4o5', 'f', 1, 7)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.2ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:03:22', 't', '2010-01-26 23:03:22', 'If u could have free airfare &amp; free hotel to Hawaii but the hotel was only 3 stars, would you go? I''m kinda leaning to No - is that snobby?', 'f', 1, 7)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.2ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:03:22', 'f', '2010-01-26 23:03:22', '#nowplaying country collection music!!! Latest CHEAP airfare deals here http://ow.ly/10Kyv', 'f', 1, 7)[0m
+  [4;35;1mTweet Load (34.3ms)[0m   [0mSELECT * FROM "tweets" [0m
+  [4;36;1mTweet Load (15.3ms)[0m   [0;1mSELECT * FROM "tweets" [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.5ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;36;1mUser Load (9.5ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (5.1ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.8ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.5ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;36;1mUser Load (1.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.5ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;36;1mUser Load (0.5ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 5) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 5) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 5) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 5) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.3ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 5) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 5) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 5) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 5) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 5) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 5) [0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 5) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 5) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.5ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 5) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 5) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 5) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 6) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.5ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 6) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.5ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 6) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (6.5ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 6) [0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.5ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 6) [0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.5ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 6) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.5ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 6) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.5ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 6) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.5ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 6) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 6) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.5ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 6) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.5ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 6) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.5ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 6) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 6) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.7ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 6) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 7) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 7) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 7) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 7) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 7) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 7) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.5ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 7) [0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.5ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 7) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 7) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 7) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 7) [0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 7) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 7) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 7) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 7) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Load (16.6ms)[0m   [0mSELECT * FROM "tweets" WHERE ("tweets"."interesting" = 'f') [0m
+  [4;36;1mTweet Load (5.0ms)[0m   [0;1mSELECT * FROM "tweets" WHERE ("tweets"."interesting" = 't') [0m
+  [4;35;1mTweet Load (15.7ms)[0m   [0mSELECT * FROM "tweets" [0m
+  [4;36;1mTweet Load (2.0ms)[0m   [0;1mSELECT * FROM "tweets" WHERE ("tweets"."interesting" = 't') [0m
+  [4;35;1mTweet Load (1.9ms)[0m   [0mSELECT * FROM "tweets" WHERE ("tweets"."interesting" = 't') [0m
+  [4;36;1mTweet Load (8.4ms)[0m   [0;1mSELECT * FROM "tweets" WHERE ("tweets"."interesting" = 't') [0m
+  [4;35;1mTweet Load (14.9ms)[0m   [0mSELECT * FROM "tweets" [0m
+  [4;36;1mTweet Load (21.1ms)[0m   [0;1mSELECT * FROM "tweets" [0m
+  [4;35;1mTweet Load (10.9ms)[0m   [0mSELECT * FROM "tweets" WHERE ("tweets"."interesting" = 't') [0m
+  [4;36;1mTweet Load (25.7ms)[0m   [0;1mSELECT * FROM "tweets" [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.5ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.5ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.5ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.5ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 5) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 5) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 5) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 5) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 5) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 5) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 5) [0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 5) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 5) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.5ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 5) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 5) [0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 5) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 5) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 5) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 5) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 6) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 6) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 6) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 6) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.5ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 6) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 6) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 6) [0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 6) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.5ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 6) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 6) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 6) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 6) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 6) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 6) [0m
+  [4;36;1mUser Load (0.6ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 6) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 7) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 7) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 7) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 7) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 7) [0m
+  [4;36;1mUser Load (0.6ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 7) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 7) [0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 7) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 7) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 7) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 7) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 7) [0m
+  [4;36;1mUser Load (0.8ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 7) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 7) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mKeyword Load (0.4ms)[0m   [0mSELECT * FROM "keywords" WHERE ("keywords"."id" = 7) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Load (2.4ms)[0m   [0mSELECT * FROM "tweets" WHERE ("tweets"."interesting" = 't') [0m
+  [4;36;1mTweet Load (1.9ms)[0m   [0;1mSELECT * FROM "tweets" WHERE ("tweets"."interesting" = 't') [0m
+  [4;35;1mTweet Load (9.9ms)[0m   [0mSELECT * FROM "tweets" WHERE ("tweets"."interesting" = 'f') [0m
+  [4;36;1mUser Update (0.5ms)[0m   [0;1mUPDATE "users" SET "classifier" = '--- !ruby/object:Classifier::Bayes 
+categories: 
+ :Uninteresting: 
+ :lean: 2
+ :spend: 1
+ :"#": 32
+ :httpbitly9uoy43: 1
+ :week: 5
+ :"09feb": 1
+ :fan: 2
+ :mke: 1
+ :/: 17
+ :amp: 2
+ :could: 2
+ :ric: 1
+ :agent: 1
+ :cooook: 2
+ :-: 4
+ :")": 4
+ :+: 1
+ :get: 1
+ :cheapoair: 2
+ :"''": 3
+ :travel: 8
+ :onli: 3
+ :trip: 6
+ :tuesday: 2
+ :"52perfectday": 3
+ :kinda: 2
+ :httpdealnaycom245529: 1
+ :":)": 2
+ :ticket: 1
+ :"119feb": 1
+ :turkey: 9
+ :milwauke: 1
+ :richmond: 1
+ :earli: 1
+ :"@": 19
+ :httpbitlycjse1p: 5
+ :seni: 2
+ :"!!": 4
+ :airticket: 2
+ :"(": 4
+ :atlanta: 1
+ :brillianttip: 6
+ :"!": 1
+ :star: 2
+ :cheapest: 2
+ :httptlovecom293174667: 1
+ :"!!!": 2
+ :airfar: 11
+ :fire: 1
+ :turkish: 2
+ :"02feb": 1
+ :nyc: 1
+ :mexicanaair: 5
+ :justinbieb: 2
+ :green: 1
+ :"?": 4
+ :traveld: 1
+ :flight: 2
+ :free: 4
+ :would: 2
+ :beach: 1
+ :grb: 1
+ :"$": 3
+ :velvetescap: 3
+ :reveal: 1
+ :hawaii: 2
+ :for: 1
+ :genocid: 1
+ :"!!!!": 2
+ :cheap: 1
+ :love: 2
+ :was: 2
+ :miami: 1
+ :"133feb": 1
+ :york: 1
+ :mexico: 10
+ :"://": 16
+ :great: 5
+ :&: 2
+ :httpbitlyb8ohn: 1
+ :say: 2
+ :"*,": 2
+ :httpdealnaycom245528: 1
+ :".": 17
+ :httpsupr2ypskt: 6
+ :",": 2
+ :snobbi: 2
+ :night: 1
+ :"337person": 1
+ :bay: 1
+ :hotel: 4
+ :seviyorum: 2
+ :centuri: 1
+ :dirt: 1
+ :";": 2
+ :"20th": 1
+ :":": 12
+ :deal: 6
+ :gallipoli: 6
+ :traveltuesday: 7
+ :Interesting: 
+ :eat: 1
+ :for: 1
+ :great: 1
+ :onion: 1
+ :wouldnt: 1
+ :understandblu: 1
+ :english: 1
+ :/: 2
+ :frost: 1
+ :feel: 1
+ :brunch: 1
+ :";": 2
+ :blindmaximus: 1
+ :mad: 1
+ :shaken: 1
+ :".": 3
+ :muffin: 1
+ :"..": 1
+ :flake: 1
+ :"5am": 1
+ :scrambld: 1
+ :turkey: 5
+ :bacon: 4
+ :dinner: 1
+ :pork: 1
+ :your: 1
+ :chat: 1
+ :"!?!": 1
+ :had: 2
+ :yummmm: 1
+ :"?": 1
+ :rice: 1
+ :egg: 1
+ :",": 3
+ :even: 1
+ :gasp: 1
+ :-: 1
+ :thepbg: 1
+ :lol: 1
+ :life: 1
+ :&: 2
+ :mayb: 1
+ :what: 1
+ :chees: 1
+ :vegibacontrailerparkdog: 1
+ :"@": 4
+ :*: 2
+ :"???@": 1
+ :ill: 1
+ :"''": 3
+ :amp: 2
+ :food: 2
+ :eater: 1
+ :"#": 1
+ :pepper: 1
+ :onecentpenni: 1
+options: 
+ :encoding: UTF_8
+ :categories: 
+ - Interesting
+ - Uninteresting
+ :language: en
+stemmer: 
+total_words: 427
+' WHERE "id" = 1[0m
+  [4;35;1mTweet Load (20.7ms)[0m   [0mSELECT * FROM "tweets" [0m
+  [4;36;1mKeyword Load (0.4ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (0.5ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (0.5ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (0.5ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (0.4ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (0.4ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (0.4ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (0.4ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (0.4ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (0.4ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (0.4ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (0.4ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (0.4ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (0.4ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (1.7ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 4) [0m
+  [4;35;1mUser Load (0.6ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (0.6ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 5) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (0.4ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 5) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (0.4ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 5) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (0.4ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 5) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (0.4ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 5) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (0.7ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 5) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (0.7ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 5) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (0.4ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 5) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (0.5ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 5) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (0.4ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 5) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (0.4ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 5) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (0.4ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 5) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (0.4ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 5) [0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (0.4ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 5) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (0.4ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 5) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (0.4ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 6) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (0.4ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 6) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (0.4ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 6) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (0.4ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 6) [0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (0.4ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 6) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (0.4ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 6) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (0.4ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 6) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (0.4ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 6) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (0.5ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 6) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (1.1ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 6) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (0.4ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 6) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (0.4ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 6) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (0.4ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 6) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (0.4ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 6) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (0.4ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 6) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (0.4ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 7) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (0.4ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 7) [0m
+  [4;35;1mUser Load (0.5ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (0.4ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 7) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (1.2ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 7) [0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (0.4ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 7) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (0.9ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 7) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (0.5ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 7) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (0.4ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 7) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (0.4ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 7) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (0.4ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 7) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (0.4ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 7) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (0.4ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 7) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (0.5ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 7) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (0.4ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 7) [0m
+  [4;35;1mUser Load (0.6ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mKeyword Load (0.4ms)[0m   [0;1mSELECT * FROM "keywords" WHERE ("keywords"."id" = 7) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Load (3.1ms)[0m   [0;1mSELECT * FROM "tweets" WHERE ("tweets"."interesting" = 't') [0m
+  [4;35;1mKeyword Load (1.5ms)[0m   [0mSELECT * FROM "keywords" [0m
+  [4;36;1mKeyword Load (1.7ms)[0m   [0;1mSELECT * FROM "keywords" [0m
+  [4;35;1mKeyword Load (1.6ms)[0m   [0mSELECT * FROM "keywords" [0m
+  [4;36;1mKeyword Load (1.0ms)[0m   [0;1mSELECT * FROM "keywords" [0m
+  [4;35;1mKeyword Load (1.0ms)[0m   [0mSELECT * FROM "keywords" [0m
+  [4;36;1mKeyword Load (1.5ms)[0m   [0;1mSELECT * FROM "keywords" [0m
+  [4;35;1mTweet Load (0.2ms)[0m   [0mSELECT * FROM "tweets" WHERE ("tweets".keyword_id = 1) [0m
+  [4;36;1mKeyword Destroy (0.2ms)[0m   [0;1mDELETE FROM "keywords" WHERE "id" = 1[0m
+  [4;35;1mTweet Load (0.2ms)[0m   [0mSELECT * FROM "tweets" WHERE ("tweets".keyword_id = 2) [0m
+  [4;36;1mKeyword Destroy (0.2ms)[0m   [0;1mDELETE FROM "keywords" WHERE "id" = 2[0m
+  [4;35;1mKeyword Load (0.8ms)[0m   [0mSELECT * FROM "keywords" [0m
+  [4;36;1mKeyword Load (1.4ms)[0m   [0;1mSELECT * FROM "keywords" [0m
+  [4;35;1mUser Load (0.5ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.3ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:21:04', 't', '2010-01-26 23:21:04', 'Dinner: Turkey kilbasa in a honey BBQ sauce with onions, salad, some sort of fruit, egg noodles with a smidge of parm. Mm.', 'f', 1, 4)[0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.3ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:21:04', 't', '2010-01-26 23:21:04', '@AlexRidio oh the turkey thing had to do with black people and thanksgiving', 'f', 1, 4)[0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.4ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:21:04', 't', '2010-01-26 23:21:04', 'WOMAN''S VIEW: #tcot the levi tales: a jive turkey, mama bears, and a tank in a china shop http://bit.ly/ch00L5 #spwbt #palin12 #sgp', 'f', 1, 4)[0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.3ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:21:04', 'f', '2010-01-26 23:21:04', 'Greece: Turkey has no camels! http://www.worldface.co.uk http://tinyurl.com/y8bcods', 'f', 1, 4)[0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.7ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:21:04', 't', '2010-01-26 23:21:04', 'I wonder who came up with the saying &quot;cold turkey.&quot; I don''t really get how a cold turkey has anything to do with quitting. hm..', 'f', 1, 4)[0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.3ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:21:04', 't', '2010-01-26 23:21:04', 'if only HCR were as easy as making an amazing turkey sausage and pepper dish. I dont think ive ever done one better than this. SLOWWW', 'f', 1, 4)[0m
+  [4;36;1mUser Load (0.7ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.3ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:21:04', 't', '2010-01-26 23:21:04', 'My mom is the best cook EVER! For dinner we had Curry Turkey,Rice&amp;Gravy,Broccoli,Corn,and Cornbread. AMAZING!! ILY Mom♥', 'f', 1, 4)[0m
+  [4;36;1mUser Load (2.8ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.3ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:21:04', 't', '2010-01-26 23:21:04', 'Fitches IGA needs bigger buns, I refuse to make smaller turkey 	burgers. http://post.ly/Ki4p', 'f', 1, 4)[0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.3ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:21:04', 't', '2010-01-26 23:21:04', '@lianapons turkey meatloaf! Mmmmm! Ground turkey, egg, bread crumbs, onion soup mix, Worcestershire, garlic, season, mix, bake.', 'f', 1, 4)[0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.3ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:21:04', 't', '2010-01-26 23:21:04', '@brendanbiryla hey brother, do you know a band called Sorg Uten Tårer? it''s folk from TURKEY!!! good #folk #metal', 'f', 1, 4)[0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.3ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:21:04', 't', '2010-01-26 23:21:04', 'Target Icee machine out of Cherry. Settled for Blue Rasberry Frost. Feel like alcoholic who drinks Nyquil when the Wild Turkey runs dry.', 'f', 1, 4)[0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.3ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:21:04', 't', '2010-01-26 23:21:04', '@goshjoanna maybe there was turkey in your chicken? haha', 'f', 1, 4)[0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.3ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:21:04', 't', '2010-01-26 23:21:04', 'Just made the most delicious grilled turkey sandwich with swiss on rye! Basic, but so good!', 'f', 1, 4)[0m
+  [4;36;1mUser Load (0.5ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.3ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:21:04', 't', '2010-01-26 23:21:04', 'had interesting conversation today about the civilazation on turkey.........NOT!', 'f', 1, 4)[0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.3ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:21:04', 't', '2010-01-26 23:21:04', 'homemade italian wedding soup with a twist- turkey meatballs, escarole, tomatoes, and other deliciousness... #cooking', 'f', 1, 4)[0m
+  [4;36;1mUser Load (0.5ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.3ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:21:04', 't', '2010-01-26 23:21:04', 'RT @ShanikaLaShae: Craving a bacon, egg, &amp; cheese!hahaha should have called me that was breakfast @2PM on cinnamon raisin bread', 'f', 1, 5)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.3ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:21:04', 't', '2010-01-26 23:21:04', 'Sou muito mais um x-bacon com maionese temperada do Buris Burguer!', 'f', 1, 5)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.3ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:21:04', 't', '2010-01-26 23:21:04', 'mbic= Maple Bacon Ice Cream =) RT @mirabean: @HulaIsMyLife what is mbic?', 'f', 1, 5)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.3ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:21:04', 't', '2010-01-26 23:21:04', '@martztheknife how??? Beer with a side of bacon', 'f', 1, 5)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.3ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:21:04', 't', '2010-01-26 23:21:04', 'Just in: A Terrible Beauty, by Francis Bacon. http://www.photoeye.com/bookstore/citation.cfm?catalog=DQ402', 'f', 1, 5)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.3ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:21:04', 't', '2010-01-26 23:21:04', 'My friend sent me this... a bacon flow chart. Thought it was cute! http://bit.ly/9OGAui', 'f', 1, 5)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.3ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:21:05', 't', '2010-01-26 23:21:05', '*mental note* when cooking bacon, dont wear a tanktop. wear a long sleeve shirt. and eye protection. ow
+&lt;33', 'f', 1, 5)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.4ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:21:05', 't', '2010-01-26 23:21:05', 'Kyra Sedgwick : La femme de Kevin Bacon vole la place de... Demi Moore !: Les séries mènent à tout : alors qu''.. http://bit.ly/cm8DMf', 'f', 1, 5)[0m
+  [4;35;1mUser Load (0.6ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.3ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:21:05', 't', '2010-01-26 23:21:05', 'Kyra Sedgwick : La femme de Kevin Bacon vole la place de... Demi Moore !: Les séries mènent à tout : alors qu''.. http://bit.ly/cm8DMf', 'f', 1, 5)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.3ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:21:05', 't', '2010-01-26 23:21:05', 'I need an egg and bacon sandwich now oh my god', 'f', 1, 5)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.3ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:21:05', 't', '2010-01-26 23:21:05', 'so, mission put poster on Bacon''s ceiling was a success. :) But he''s apparently going to kill me now... hah!', 'f', 1, 5)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.3ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:21:05', 't', '2010-01-26 23:21:05', 'RT @scotchreviews: Bowmore 18yr: Bananas, smoked bacon cooked in a cast iron skillet, mellow gold, Cadbury creme eggs, silky and warming, A', 'f', 1, 5)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.3ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:21:05', 't', '2010-01-26 23:21:05', 'Bacon and cupcakes! @lobese http://bit.ly/amvDpL', 'f', 1, 5)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.3ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:21:05', 't', '2010-01-26 23:21:05', 'and i have done the worst fake tan ever, my legs look like bacon!', 'f', 1, 5)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.3ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:21:05', 't', '2010-01-26 23:21:05', 'Need an Australia Day recovery breakfast, bacon &amp; egg roll and coffee $4.90, or maybe Toast and Coffee for just $4.50 .. delivery available!', 'f', 1, 5)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (5.7ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:21:05', 't', '2010-01-26 23:21:05', 'is cooking dinner-fish sticks, tator tots, green beans and okra! LOL Sounds like a school cafe! HAHAH Kid frinedly tho.', 'f', 1, 6)[0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.3ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:21:05', 't', '2010-01-26 23:21:05', 'Brett is cooking dinner and just told me to get out of the kitchen. Howwww lucky am I?!', 'f', 1, 6)[0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.3ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:21:05', 't', '2010-01-26 23:21:05', 'Morning too bek. Aku jg mau !!!! RT @ChristineItine: Mornniinnnggggg .. Wake up earlier n cooking spaghetti for ''kurcaci-', 'f', 1, 6)[0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.4ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:21:05', 't', '2010-01-26 23:21:05', '@KhloeKardashian cooking dinner, and what about you?', 'f', 1, 6)[0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.3ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:21:05', 't', '2010-01-26 23:21:05', 'Ningyo''s rules of cooking #2: Serve with orange juice.', 'f', 1, 6)[0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.3ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:21:05', 't', '2010-01-26 23:21:05', 'Cooking tip: check to see if the soba noodles are taped together in little bundles before you boil them. #sonofabitch', 'f', 1, 6)[0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.3ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:21:05', 't', '2010-01-26 23:21:05', 'cooking :o&lt;333', 'f', 1, 6)[0m
+  [4;36;1mUser Load (0.8ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.3ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:21:05', 't', '2010-01-26 23:21:05', 'Ningyo''s rules of cooking #1: Always ask yourself, &quot;What can I add to this?&quot;', 'f', 1, 6)[0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.3ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:21:05', 't', '2010-01-26 23:21:05', '@IAMYABOYL let me find out your cooking skills are on point!!!! Lol', 'f', 1, 6)[0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.4ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:21:06', 't', '2010-01-26 23:21:06', 'Shallots, onions, does it matter? #cooking', 'f', 1, 6)[0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.3ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:21:06', 't', '2010-01-26 23:21:06', '*mental note* when cooking bacon, dont wear a tanktop. wear a long sleeve shirt. and eye protection. ow
+&lt;33', 'f', 1, 6)[0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.3ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:21:06', 't', '2010-01-26 23:21:06', 'cooking today..........', 'f', 1, 6)[0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.3ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:21:06', 't', '2010-01-26 23:21:06', 'so hungry. i miss my moms cooking. i should stay around here more often.', 'f', 1, 6)[0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.3ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:21:06', 't', '2010-01-26 23:21:06', 'been slowly cooking stuff to make chicken matza ball soup for dinner. The stock tastes excellent.', 'f', 1, 6)[0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTweet Create (0.3ms)[0m   [0mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:21:06', 't', '2010-01-26 23:21:06', '@vz9p57 dinners cooking and I have a spare toolbelt waiting for ya', 'f', 1, 6)[0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.3ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:21:06', 't', '2010-01-26 23:21:06', '@WilliamC_H ARE YOU SERIOUS?........ How much is airfare?', 'f', 1, 7)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.3ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:21:06', 'f', '2010-01-26 23:21:06', 'travel insurance : Travel News for January 2010: Airfare and Hotel Deals | 52per... - http://bit.ly/bFgATU - 52perfectdays.com at this newz', 'f', 1, 7)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.3ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:21:06', 'f', '2010-01-26 23:21:06', 'RT @52perfectdays: #Travel Tuesday Great deals to Mexico this week with @MexicanaAir http://bit.ly/cjse1p #mexico #airfare', 'f', 1, 7)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.3ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:21:06', 'f', '2010-01-26 23:21:06', 'Fired Travel Agent Reveals How To Get Dirt Cheap Airfare Tickets! http://bit.ly/9Uoy43', 'f', 1, 7)[0m
+  [4;35;1mUser Load (0.6ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.3ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:21:06', 'f', '2010-01-26 23:21:06', '#Travel Tuesday Great deals to Mexico this week with @MexicanaAir http://bit.ly/cjse1p #mexico #airfare', 'f', 1, 7)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.3ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:21:06', 't', '2010-01-26 23:21:06', '@jasmine84 Thanks! Haha, do you think they''ll give me special consideration if I say, &quot;I''m poor, so I can''t afford airfare&quot;?', 'f', 1, 7)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.4ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:21:06', 't', '2010-01-26 23:21:06', 'Airfare deals Halifax-Lethbridge -- $444 -- 1/26/2010, http://tgels.com/d.jsp?c=1&amp;f=yhz&amp;t=yql', 'f', 1, 7)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.3ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:21:06', 'f', '2010-01-26 23:21:06', 'RT @52perfectdays: Great deals to Mexico this week with @MexicanaAir http://bit.ly/cjse1p #travel #mexico #airfare', 'f', 1, 7)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.3ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:21:06', 'f', '2010-01-26 23:21:06', 'RT @52perfectdays: Great deals to Mexico this week with @MexicanaAir http://bit.ly/cjse1p #travel #mexico #airfare', 'f', 1, 7)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.3ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:21:06', 'f', '2010-01-26 23:21:06', 'Great deals to Mexico this week with @MexicanaAir http://bit.ly/cjse1p #travel #mexico #airfare', 'f', 1, 7)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.3ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:21:06', 'f', '2010-01-26 23:21:06', 'Cheapest Airfare from Milwaukee (MKE) to Green Bay (GRB) $119*,Feb 09-Feb 16 http://dealnay.com/245528 #travel #flight #airticket #cheapoair', 'f', 1, 7)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.3ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:21:06', 'f', '2010-01-26 23:21:06', 'Cheapest Airfare from New York (NYC) to Richmond (RIC) $133*,Feb 02-Feb 09 http://dealnay.com/245529 #travel #flight #airticket #cheapoair', 'f', 1, 7)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.3ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:21:06', 'f', '2010-01-26 23:21:06', 'Spend 2 Nights in Miami Beach + Airfare from Atlanta for only $337/person http://bit.ly/b8OHnE #traveldeals #deals #traveltuesday', 'f', 1, 7)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.3ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:21:06', 'f', '2010-01-26 23:21:06', 'Lowest Airfare from Orlando(ORL) to Philadelphia(PHL) $169* http://fb.me/4P311FB', 'f', 1, 7)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTweet Create (0.3ms)[0m   [0;1mINSERT INTO "tweets" ("created_at", "interesting", "updated_at", "text", "read", "user_id", "keyword_id") VALUES('2010-01-26 23:21:06', 'f', '2010-01-26 23:21:06', 'Lowest Airfare from Orlando(ORL) to #Philadelphia(PHL) $169* http://bit.ly/2Vs4o5', 'f', 1, 7)[0m
+  [4;35;1mTweet Load (51.0ms)[0m   [0mSELECT * FROM "tweets" [0m
+  [4;36;1mTweet Load (18.8ms)[0m   [0;1mSELECT * FROM "tweets" WHERE ("tweets"."interesting" = 't') [0m
